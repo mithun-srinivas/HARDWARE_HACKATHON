@@ -14,5 +14,4 @@ while True:
     ws.send(json.dumps(data))
     print(json.dumps(data))
     print("Data is sent")
-    time.sleep(1)
 ws.close()

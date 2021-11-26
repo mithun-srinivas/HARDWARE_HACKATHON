@@ -291,7 +291,7 @@ body {
 
 
 <script>
-var dataa = [];
+var ecg_data = 0;
     var client_id = Date.now();
     console.log("Initiated");
     var ws = new WebSocket("ws://10.60.2.245:8000/ws/"+client_id);
@@ -311,7 +311,16 @@ var dataa = [];
           var temp = document.getElementById('temperature')
           spo2.innerHTML = jsonData.spo2
           temp.innerHTML = jsonData.temp
-          dataa.push(jsonData.ecg)
+          ecg_data = jsonData.ecg
+          Plotly.extendTraces('chartt',{ y:[[ecg_data]]}, [0]);
+                cnt++;
+                if(cnt > 500) {
+                    Plotly.relayout('chartt',{
+                        xaxis: {
+                            range: [cnt-500,cnt]
+                        }
+                    });
+                }
           //data.append(jsonData.ecg);
         }
     };
@@ -327,7 +336,7 @@ var dataa = [];
 
 <script>
             function getData() {
-               return dataa;
+               return ecg_data;
             }
 
             Plotly.newPlot('chartt',[{
@@ -338,8 +347,7 @@ var dataa = [];
             var cnt = 0;
 
             setInterval(function(){
-
-                Plotly.extendTraces('chartt',{ y:[[1000]]}, [0]);
+                Plotly.extendTraces('chartt',{ y:[[getData()]]}, [0]);
                 cnt++;
                 if(cnt > 500) {
                     Plotly.relayout('chartt',{
@@ -348,7 +356,7 @@ var dataa = [];
                         }
                     });
                 }
-            },10);
+            },0.001);
         </script>
 
   <script>
