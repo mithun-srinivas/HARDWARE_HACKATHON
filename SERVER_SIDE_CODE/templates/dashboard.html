@@ -239,12 +239,14 @@
                     </div>
                   </div>
                 </div>
-                
+
               </div>
 
 
 
           </section>
+
+          <div id="chartt"></div>
 
           <!-- Page Footer-->
           <footer class="main-footer" style="background-color: #2596be;">
@@ -269,6 +271,8 @@
     <script src="https://d19m59y37dris4.cloudfront.net/admin/1-4-5/js/charts-home.js"></script>
     <!-- Main File-->
     <script src="https://d19m59y37dris4.cloudfront.net/admin/1-4-5/js/front.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.6.3.min.js"></script>
+
   </body>
 
   <style>
@@ -320,6 +324,32 @@ var dataa = [];
     }*/
 
 </script>
+
+<script>
+            function getData() {
+               return dataa;
+            }
+
+            Plotly.newPlot('chartt',[{
+                y:[getData()],
+                type:'line'
+            }]);
+
+            var cnt = 0;
+
+            setInterval(function(){
+
+                Plotly.extendTraces('chartt',{ y:[[1000]]}, [0]);
+                cnt++;
+                if(cnt > 500) {
+                    Plotly.relayout('chartt',{
+                        xaxis: {
+                            range: [cnt-500,cnt]
+                        }
+                    });
+                }
+            },10);
+        </script>
 
   <script>
 
@@ -379,7 +409,7 @@ var dataa = [];
           max: 1000
         })
         chart.updateSeries([{
-          data: dataa
+          data: data
         }])
       }, 1000)
   </script>
