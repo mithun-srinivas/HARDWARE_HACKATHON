@@ -1,9 +1,16 @@
 from typing import List
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Response
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+
+#app.mount("/static", StaticFiles(directory="static"), name="static")
+
+templates = Jinja2Templates(directory="templates")
+
 
 html = """
 <!DOCTYPE html>
@@ -69,6 +76,9 @@ manager = ConnectionManager()
 async def get():
     return HTMLResponse(html)
 
+@app.get("/dashboard", response_class=HTMLResponse)
+async def read_item(request: Request):
+    return templates.TemplateResponse("dashboard.html", {"request": request})
 
 
 
