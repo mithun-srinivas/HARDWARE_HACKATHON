@@ -22,7 +22,86 @@
     <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/admin/1-4-5/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/admin/1-4-5/img/favicon.ico">
+    
+
+    <script>
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
+        )
+    </script>
+
+    
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    
+
+    <script>
+      // Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
+      // Based on https://gist.github.com/blixt/f17b47c62508be59987b
+      var _seed = 42;
+      Math.random = function() {
+        _seed = _seed * 16807 % 2147483647;
+        return (_seed - 1) / 2147483646;
+      };
+    </script>
+
+    <script>
+  var lastDate = 0;
+  var data = []
+  var TICKINTERVAL = 86400000
+  let XAXISRANGE = 777600000
+  function getDayWiseTimeSeries(baseval, count, yrange) {
+    var i = 0;
+    while (i < count) {
+      var x = baseval;
+      var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+  
+      data.push({
+        x, y
+      });
+      lastDate = baseval
+      baseval += TICKINTERVAL;
+      i++;
+    }
+  }
+  
+  getDayWiseTimeSeries(new Date('11 Feb 2017 GMT').getTime(), 10, {
+    min: 10,
+    max: 90
+  })
+  
+  function getNewSeries(baseval, yrange) {
+    var newDate = baseval + TICKINTERVAL;
+    lastDate = newDate
+  
+    for(var i = 0; i< data.length - 10; i++) {
+      // IMPORTANT
+      // we reset the x and y of the data which is out of drawing area
+      // to prevent memory leaks
+      data[i].x = newDate - XAXISRANGE - TICKINTERVAL
+      data[i].y = 0
+    }
+  
+    data.push({
+      x: newDate,
+      y: Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
+    })
+  }
+  
+  function resetData(){
+    // Alternatively, you can also reset the data at certain intervals to prevent creating a huge series 
+    data = data.slice(data.length - 10, data.length);
+  }
+  </script>
+
 
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -32,7 +111,8 @@
     <div class="page">
       <!-- Main Navbar-->
       <header class="header" >
-        <nav class="navbar" style="background-color: #b22222;">
+        <nav class="navbar" style="background-color: #2596be
+        ;">
           <!-- Search Box-->
           <div class="search-box">
             <button class="dismiss"><i class="icon-close"></i></button>
@@ -41,23 +121,23 @@
             </form>
           </div>
           <div class="container-fluid" >
-            <div class="navbar-holder d-flex align-items-center justify-content-between" >
+            <div class="navbar-holder d-flex align-items-center justify-content-between" style="height: 20px;">
               <!-- Navbar Header-->
               <div class="navbar-header" >
                 <!-- Navbar Brand --><a href="index.html" class="navbar-brand d-none d-sm-inline-block">
-                  <div class="brand-text d-none d-lg-inline-block"><span></span><strong>TEAM IOTREE MINDS</strong></div>
-                  <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>TEAM IOTREE MINDS</strong></div></a>
+                  <div class="brand-text d-none d-lg-inline-block" style="color: white;"><span></span><strong>TEAM IOTREE MINDS</strong></div>
+                  <div class="brand-text d-none d-sm-inline-block d-lg-none" style="color: white;"><strong>TEAM IOTREE MINDS</strong></div></a>
                 <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
               </div>
               <!-- Navbar Menu -->
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                
                 <!-- Logout    -->
-                <form action="/logout">
-                    <button class="btn btn-danger"  type="submit" style="background-color: #b22222; color: white; border-width: 2px;">
+              <form action="/logout" >
+                <button class="btn "  type="submit" style="background-color: #2596be; color: white; border-width: 2px; height: 18px; padding-top: 6px; margin-bottom: 35px;">
                 <li class="nav-item"><a  class="nav-link logout" href="/logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
                     </button>
-            </form>
+              </form>
+                
               </ul>
             </div>
           </div>
@@ -76,7 +156,7 @@
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
-            <li  style="background-color: #b22222; color: white;"><a href="dashboard"> <i class="icon-home"></i>Home </a></li>
+            <li  style="background-color: #2596be; color: white;"><a href="dashboard"> <i class="icon-home"></i>Home </a></li>
             </ul>
         </nav>
         <div class="content-inner">
@@ -84,6 +164,9 @@
           <header class="page-header" >
             <div class="container-fluid">
               <h2 class="no-margin-bottom">Dashboard</h2>
+
+              
+            
             </div>
           </header>
 
@@ -92,7 +175,7 @@
           <!-- Dashboard Counts Section-->
           <section class="dashboard-counts no-padding-bottom">
 
-            <div class="container-fluid" style="text-align: center;">
+            <div class="container-fluid" style="text-align: start;">
                 <div style="margin-bottom: 15px;">
                     <iframe  src="https://www.miilliionpages.com" style="width: 40%; height: 250px;">
                     </iframe>
@@ -164,10 +247,10 @@
           
           
           <!-- Page Footer-->
-          <footer class="main-footer" style="background-color: #b22222;">
+          <footer class="main-footer" style="background-color: #2596be;">
             <div class="container-fluid">
               <div class="row">
-                <div class="container" style="text-align: center;">
+                <div class="container" style="text-align: center; ">
                   <p>All Rights Reserved, © 2021. Designed & developed by : Iotree Minds LLP</p>
                 </div>
               </div>
