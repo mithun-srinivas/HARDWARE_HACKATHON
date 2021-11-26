@@ -1,8 +1,8 @@
 from websocket import create_connection
 import random
 import time
-
-ws = create_connection("ws://10.60.2.245:8000/ws/10946")
+import json
+ws = create_connection("ws://10.60.2.245:8000/ws/10949")
 print("Connected to websocket server")
 while True:
     data = {}
@@ -11,8 +11,8 @@ while True:
     data["spo2"] = random.randint(87,95)
     data["bpm"] = random.randint(70,84)
     data["bp"] = random.randint(80,120)
-    ws.send(str(data))
-    print(str(data))
+    ws.send(json.dumps(data))
+    print(json.dumps(data))
     print("Data is sent")
-
+    time.sleep(1)
 ws.close()

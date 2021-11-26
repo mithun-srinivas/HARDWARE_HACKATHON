@@ -1,5 +1,5 @@
 from typing import List
-
+import json
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Response
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -89,8 +89,15 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
         while True:
             data = await websocket.receive_text()
             print(data)
-            await manager.send_personal_message(f"You wrote: {data}", websocket)
-            await manager.broadcast(f"Client #{client_id} says: {data}")
+            json_data = json.loads(data)
+            json_data["message"] ="personalisedMessage"
+            await manager.send_personal_message(str(json_data), websocket)
+            json_data["message"] ="pusblishedMessage"
+            json_data["clientId"] = client_id
+            print(json.dumps(json_data))
+            await manager.broadcast(json.dumps(json_data))
+            #await manager.send_personal_message(f"You wrote: {data}", websocket)
+            #await manager.broadcast(f"Client #{client_id} says: {data}")
 
     except WebSocketDisconnect:
         manager.disconnect(websocket)

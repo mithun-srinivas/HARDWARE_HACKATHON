@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/admin/1-4-5/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/admin/1-4-5/img/favicon.ico">
-    
+
 
     <script>
       window.Promise ||
@@ -39,9 +39,9 @@
         )
     </script>
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    
+
 
     <script>
       // Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
@@ -63,7 +63,7 @@
     while (i < count) {
       var x = baseval;
       var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-  
+
       data.push({
         x, y
       });
@@ -72,16 +72,16 @@
       i++;
     }
   }
-  
+
   getDayWiseTimeSeries(new Date('11 Feb 2017 GMT').getTime(), 10, {
     min: 10,
     max: 90
   })
-  
+
   function getNewSeries(baseval, yrange) {
     var newDate = baseval + TICKINTERVAL;
     lastDate = newDate
-  
+
     for(var i = 0; i< data.length - 10; i++) {
       // IMPORTANT
       // we reset the x and y of the data which is out of drawing area
@@ -89,13 +89,13 @@
       data[i].x = newDate - XAXISRANGE - TICKINTERVAL
       data[i].y = 0
     }
-  
+
     data.push({
       x: newDate,
       y: Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
     })
   }
-  
+
   function resetData(){
     // Alternatively, you can also reset the data at certain intervals to prevent creating a huge series 
     data = data.slice(data.length - 10, data.length);
@@ -137,13 +137,12 @@
                 <li class="nav-item"><a  class="nav-link logout" href="/logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
                     </button>
               </form>
-                
               </ul>
             </div>
           </div>
         </nav>
       </header>
-      <div class="page-content d-flex align-items-stretch"> 
+      <div class="page-content d-flex align-items-stretch">
         <!-- Side Navbar -->
         <nav class="side-navbar">
           <!-- Sidebar Header-->
@@ -165,13 +164,9 @@
             <div class="container-fluid">
               <h2 class="no-margin-bottom">Dashboard</h2>
 
-              
-            
             </div>
           </header>
 
-          
-            
           <!-- Dashboard Counts Section-->
           <section class="dashboard-counts no-padding-bottom">
 
@@ -183,32 +178,32 @@
                 </div>
                 <div id="chart">
                 </div>
-                
+
                 <div class="row bg-white has-shadow" style="margin-bottom: 30px;">
                   <!-- Item -->
                   <div class="col-xl-3 col-sm-6">
                     <div class="item d-flex align-items-center">
                       <div class="icon bg-violet"><i class="icon-user"></i></div>
                       <div class="title"><span>Temperature<br>Captured</span>
-                          <div class="number"><strong>25</strong></div>
+                          <div class="number"><strong id="temperature">- -</strong> F</div>
                         <div class="progress">
                           <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
                         </div>
                       </div>
-                      
+
                     </div>
                   </div>
                   <!-- Item -->
                   <div class="col-xl-3 col-sm-6">
                       <div class="item d-flex align-items-center">
                         <div class="icon bg-violet"><i class="icon-user"></i></div>
-                        <div class="title"><span>SP o2<br>Reading</span>
-                            <div class="number"><strong>25</strong></div>
+                        <div class="title"><span>SP O2<br>Reading</span>
+                            <div class="number"><strong id="spo2">- -</strong> %</div>
                           <div class="progress">
                             <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
                           </div>
                         </div>
-                        
+
                       </div>
                     </div>
                   <!-- Item -->
@@ -221,7 +216,7 @@
                           <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
                         </div>
                       </div>
-                      
+
                     </div>
                   </div>
                   <!-- Item -->
@@ -234,18 +229,15 @@
                           <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
                         </div>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
               </div>
 
-            
+
 
           </section>
-          
-          
-          
+
           <!-- Page Footer-->
           <footer class="main-footer" style="background-color: #2596be;">
             <div class="container-fluid">
@@ -258,8 +250,7 @@
           </footer>
         </div>
       </div>
-    
-    
+
     <!-- JavaScript files-->
     <script src="https://d19m59y37dris4.cloudfront.net/admin/1-4-5/vendor/jquery/jquery.min.js"></script>
     <script src="https://d19m59y37dris4.cloudfront.net/admin/1-4-5/vendor/popper.js/umd/popper.min.js"> </script>
@@ -286,8 +277,42 @@ body {
 
   </style>
 
+
+<script>
+    var client_id = Date.now();
+    console.log("Initiated");
+    var ws = new WebSocket("ws://10.60.2.245:8000/ws/"+client_id);
+    console.log("Connected");
+    var jsonData = {};
+    ws.onmessage = function(event) {
+        //var messages = document.getElementById('messages')
+        //var message = document.createElement('li')
+        //var content = document.createTextNode(event.data)
+        //message.appendChild(content)
+        //messages.appendChild(message)
+        console.log(event.data)
+        jsonData = JSON.parse(event.data)
+        if(jsonData.clientId == 10949){
+          console.log("GGGGGG")
+          var spo2 = document.getElementById('spo2')
+          var temp = document.getElementById('temperature')
+          spo2.innerHTML = jsonData.spo2
+          temp.innerHTML = jsonData.temp
+        }
+    };
+    /*
+    function sendMessage(event) {
+        var input = document.getElementById("messageText")
+        ws.send(input.value)
+        input.value = ''
+        event.preventDefault()
+    }*/
+
+</script>
+
   <script>
-var options = {
+
+    var options = {
           series: [{
           data: data.slice()
         }],
@@ -303,10 +328,10 @@ var options = {
             }
           },
           toolbar: {
-            show: false
+            show: true
           },
           zoom: {
-            enabled: false
+            enabled: true
           }
         },
         dataLabels: {
@@ -316,14 +341,14 @@ var options = {
           curve: 'smooth'
         },
         title: {
-          text: 'Dynamic Updating Chart',
+          text: 'Real time Electro Cardio',
           align: 'left'
         },
         markers: {
           size: 0
         },
         xaxis: {
-          type: 'datetime',
+          type: 'count',
           range: XAXISRANGE,
         },
         yaxis: {
@@ -336,14 +361,13 @@ var options = {
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
-      
-      
+
         window.setInterval(function () {
         getNewSeries(lastDate, {
           min: 10,
           max: 90
         })
-      
+
         chart.updateSeries([{
           data: data
         }])
