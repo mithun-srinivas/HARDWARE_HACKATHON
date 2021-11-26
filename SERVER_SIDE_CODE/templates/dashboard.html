@@ -129,8 +129,11 @@
                   <div class="brand-text d-none d-sm-inline-block d-lg-none" style="color: white;"><strong>TEAM IOTREE MINDS</strong></div></a>
                 <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
               </div>
+              <h2 class="no-margin-bottom col">Dashboard</h2>
+
               <!-- Navbar Menu -->
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                
                 <!-- Logout    -->
               <form action="/logout" >
                 <button class="btn "  type="submit" style="background-color: #2596be; color: white; border-width: 2px; height: 18px; padding-top: 6px; margin-bottom: 35px;">
@@ -163,7 +166,54 @@
           <header class="page-header" >
             <div class="container-fluid">
               <div class="row">
-                <h2 class="no-margin-bottom col">Dashboard</h2>
+                
+               
+                  <div class="col">
+                  <div class="item  align-items-center">
+                    
+                      <div class="title">
+                        <span>Temperature<br>Captured</span>
+                          <div class="number"><strong id="temperature">- -</strong> F</div>
+                        <div class="progress">
+                          <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col">
+                  <div class="item align-items-center">
+                    <div class="title"><span>SP O2<br>Reading</span>
+                        <div class="number"><strong id="spo2">- -</strong> %</div>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="item  align-items-center">
+                    
+                    <div class="title"><span>Doctors <br> Active</span>
+                        <div class="number"><strong>40</strong></div>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col">
+                  <div class="item align-items-center">
+                    <div class="title"><span>Open <br> Cases</span>
+                        <div class="number"><strong>50</strong></div>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+               
               <button type="button" class="btn btn-danger float-right col w-25" >START <br> TESTING</button>
               </div>
               
@@ -175,10 +225,11 @@
 
             <div class="container-fluid" style="text-align: start;">
               <div class="row pb-0">
-                <div id="chart" class="col-sm">
-                </div>
-                <div class="col-sm" style="top: 50px;">
-                  <img  src="http://192.168.255.236:81/stream" style=" height: 300px; width: 100%; overflow-x: hidden; " >
+                <!-- <div id="chart" class="col-sm">
+                </div> -->
+                <div id="chartt" class="col-md" style="height: max-content; width:100%;"></div>
+                <div class="col-md" style="height: max-content;" >
+                  <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA7jKytJvEspjHt0Wgp3Xb7FvBfOiP45tm9A&usqp=CAU " style=" height: 300px; width: 100%; overflow-x: hidden; " >
                 </img></div>
                
                  
@@ -186,8 +237,11 @@
               
               </div>
               
-                <div class="row bg-white has-shadow no-padding-top" style="margin-bottom: 30px;">
-                  <!-- Item -->
+
+
+
+                <!-- <div class="row bg-white has-shadow no-padding-top" style="margin-bottom: 30px;">
+                 
                   <div class="col-xl-3 col-sm-6">
                     <div class="item d-flex align-items-center">
                       <div class="icon bg-violet"><i class="icon-user"></i></div>
@@ -200,7 +254,7 @@
 
                     </div>
                   </div>
-                  <!-- Item -->
+                 
                   <div class="col-xl-3 col-sm-6">
                       <div class="item d-flex align-items-center">
                         <div class="icon bg-violet"><i class="icon-user"></i></div>
@@ -213,7 +267,7 @@
 
                       </div>
                     </div>
-                  <!-- Item -->
+              
                   <div class="col-xl-3 col-sm-6">
                     <div class="item d-flex align-items-center">
                       <div class="icon bg-green"><i class="icon-bill"></i></div>
@@ -226,7 +280,7 @@
 
                     </div>
                   </div>
-                  <!-- Item -->
+                 
                   <div class="col-xl-3 col-sm-6">
                     <div class="item d-flex align-items-center">
                       <div class="icon bg-orange"><i class="icon-check"></i></div>
@@ -238,7 +292,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
               </div>
 
@@ -246,7 +300,7 @@
 
           </section>
 
-          <div id="chartt"></div>
+          <!-- <div id="chartt"></div> -->
 
           <!-- Page Footer-->
           <footer class="main-footer" style="background-color: #2596be;">
