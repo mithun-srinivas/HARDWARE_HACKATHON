@@ -4,6 +4,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Response
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import random
 
 app = FastAPI()
 
@@ -76,9 +77,9 @@ manager = ConnectionManager()
 async def get():
     return HTMLResponse(html)
 
-@app.get("/dashboard", response_class=HTMLResponse)
-async def read_item(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request})
+@app.get("/dashboard/{streamid}", response_class=HTMLResponse)
+async def read_item(request: Request, streamid: str):
+    return templates.TemplateResponse("dashboard.html", {"request": request,"streamid":streamid})
 
 
 
@@ -94,6 +95,8 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
             await manager.send_personal_message(str(json_data), websocket)
             json_data["message"] ="pusblishedMessage"
             json_data["clientId"] = client_id
+            json_data["bpm"] = random.randint(70,84)
+            json_data["bp"] = random.randint(70,140)
             print(json.dumps(json_data))
             await manager.broadcast(json.dumps(json_data))
             #await manager.send_personal_message(f"You wrote: {data}", websocket)

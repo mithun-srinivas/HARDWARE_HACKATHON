@@ -37,7 +37,7 @@ void setup() {
   delay(2000); // wait for 2s
 
   //address, port, and URL path 
-  webSocket.begin("192.168.255.159", 8000, "/ws/10949"); 
+  webSocket.begin("15.206.212.215", 8000, "/ws/10949"); 
   // webSocket event handler
   webSocket.onEvent(webSocketEvent);
   // if connection failed retry every 5s
@@ -70,7 +70,7 @@ void loop() {
   }
   else{
     // send the value of analog input 0 to serial:
-   // Serial.println(analogRead(A0));
+    //Serial.println(analogRead(A0));
     ecg=analogRead(A0);
     tempc=mlx.readObjectTempC();
     tempf=mlx.readObjectTempF();
