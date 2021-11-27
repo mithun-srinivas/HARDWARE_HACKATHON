@@ -34,10 +34,10 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP()); // Print local IP address
   
-  delay(2000); // wait for 2s
+  delay(2000); // wait for
 
   //address, port, and URL path 
-  webSocket.begin("15.206.212.215", 8000, "/ws/10949"); 
+  webSocket.begin("192.168.255.159", 8000, "/ws/10949"); 
   // webSocket event handler
   webSocket.onEvent(webSocketEvent);
   // if connection failed retry every 5s
