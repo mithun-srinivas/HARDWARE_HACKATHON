@@ -358,7 +358,7 @@ body {
 var ecg_data = 0;
     var client_id = Date.now();
     console.log("Initiated");
-    var ws = new WebSocket("ws://10.60.2.245:8000/ws/"+client_id);
+    var ws = new WebSocket("ws://192.168.255.159:8000/ws/"+client_id);
     console.log("Connected");
     var jsonData = {};
     ws.onmessage = function(event) {
