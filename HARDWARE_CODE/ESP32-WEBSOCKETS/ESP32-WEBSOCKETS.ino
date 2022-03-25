@@ -36,7 +36,7 @@ void setup() {
 void loop() {
   webSocket.loop(); // Keep the socket alive
   //
-  webSocket.sendTXT("I LOVE YOU, PATS");
+  webSocket.sendTXT("chek");
 }
 
 void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
