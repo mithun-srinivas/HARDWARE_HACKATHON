@@ -2,7 +2,7 @@ from websocket import create_connection
 import random
 import time
 import json
-ws = create_connection("ws://192.168.255.48:8000/ws/10950")
+ws = create_connection("ws://192.168.225.138:8000/ws/10950")
 print("Connected to websocket server")
 while True:
     data = {}

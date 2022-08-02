@@ -195,12 +195,10 @@
                         <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
                       </div>
                     </div>
-  
                   </div>
                 </div>
                 <div class="col">
                   <div class="item  align-items-center">
-                    
                     <div class="title"><span>Beats Per<br> Minute</span>
                         <div class="number"><strong id="bpm">- -</strong> Hz</div>
                       <div class="progress">
@@ -239,7 +237,7 @@
                 <div class="col-md-4" style="height: max-content;" >
                   <div class="col">
                     <div class="row">
-                  <img  src='http://{{streamid}}:81/stream' style=" height: 300px; width: 100%; overflow-x: hidden; " >
+                  <img  src='http://192.168.225.236:81/stream' style=" height: 300px; width: 100%; overflow-x: hidden; " >
                 </img></div>
                <div class="row" style="margin-bottom: 20px;">
                 <button type="button" class="btn btn-danger  col w-25"  >START  TESTING</button></div>
@@ -358,7 +356,7 @@ body {
 var ecg_data = 0;
     var client_id = Date.now();
     console.log("Initiated");
-    var ws = new WebSocket("ws://192.168.255.159:8000/ws/"+client_id);
+    var ws = new WebSocket("ws://192.168.225.138:8000/ws/10950");
     console.log("Connected");
     var jsonData = {};
     ws.onmessage = function(event) {
